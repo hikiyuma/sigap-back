@@ -25,6 +25,8 @@ public interface IRecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAO {
 	List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByNomApeRecibo( String recibo, String nomApe);
 	
 	List<CodigosporNomApe> getCodigoByNombre(String nomApe); /* new*/
+	
+	List<CodigosporNomApe> getCodigoByNombreCodAlumno(String nomApe, String codAlumno); //para login
     
 	boolean updateRecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer id_concepto,String moneda,Date fecha, String recibo,int ciclo,int idRec, int importe, String ubicacion, String ctabanco, Boolean validado);
 	

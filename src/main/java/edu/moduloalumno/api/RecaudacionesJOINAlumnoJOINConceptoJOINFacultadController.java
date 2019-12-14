@@ -225,7 +225,32 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 
 		logger.info("< getCodigoByNombre [Recaudaciones]");
 		return new ResponseEntity<List<CodigosporNomApe>>(list, HttpStatus.OK);
-	}       
+	}  
+
+
+    //para login
+
+	@RequestMapping(value = "/listar_codigoslog/{nomApe}/{codAlumno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<CodigosporNomApe>> getCodigosByNombreCodAlumno(@PathVariable("nomApe") String nomApe,@PathVariable("codAlumno") String codAlumno) {
+		logger.info("> getCodigoByNombreCodAlumno [Recaudaciones]");
+
+		List<CodigosporNomApe> list = null;
+
+		try {
+
+			list = recaudacionesJOINAlumnoJOINConceptoJOINFacultadservice.getCodigoByNombreCodAlumno(nomApe,codAlumno);
+			if (list == null) {
+				list = new ArrayList<CodigosporNomApe>();
+			}//950305235
+
+		} catch (Exception e) {
+			logger.error("Unexpected Exception caught.", e);
+			return new ResponseEntity<List<CodigosporNomApe>>(list, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		logger.info("< getCodigoByNombreCodAlumno [Recaudaciones]");
+		return new ResponseEntity<List<CodigosporNomApe>>(list, HttpStatus.OK);
+	}
 
 	// abel tipo de cambio
 	

@@ -228,6 +228,29 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 		return this.jdbcTemplate.query(sql, rowMapper, nomApe);
 	}  
 
+
+	//para login
+
+	@Override
+	public List<CodigosporNomApe> getCodigoByNombreCodAlumno(String nomApe, String codAlumno) {
+		System.out.println("llego aqui");
+		System.out.println(nomApe);
+		System.out.println(codAlumno);
+		String sql = " SELECT ap.cod_alumno,"
+				+ " ap.nom_alumno || ' ' ||  ap.ape_paterno || ' ' || ap.ape_materno as nombre_alumno,"
+				+ " ec.ecivil_desc as estado_civil, " + " p.nom_programa as nombre_programa"
+				+ " FROM alumno_programa  as ap" + " INNER JOIN programa as p on (p.id_programa = ap.id_programa)"
+				+ " INNER JOIN estado_civil  as ec  on (ec.ecivil_id = ap.ecivil_id)" + " WHERE ((ap.ape_paterno = '"
+				+ nomApe + "') OR (ap.ape_materno = '" + nomApe + "') OR (ap.nom_alumno = '" + nomApe
+				+ "')) AND (ap.cod_alumno = '" + codAlumno + "');";
+
+		System.out.println(sql);
+		RowMapper<CodigosporNomApe> rowMapper = new CodigosporNomApeRowMapper();
+		return this.jdbcTemplate.query(sql, rowMapper);
+	}
+	
+	//login
+
 	@Override // aqui
 	public List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByNomApeConcepto(String concepto, String nomApe) {
 		
